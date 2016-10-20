@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+
+# fail fast
+set -e
+
+# debug
+# set -x
+
+# clean up leaking environment
+unset GIT_DIR
+
+# config
+CONSUL_VERSION="0.7.0"
+
+# parse and derive params
+BUILD_DIR=$1
+CACHE_DIR=$2
+LP_DIR=`cd $(dirname $0); cd ..; pwd`
+BUILDPACK_DIR="$(dirname $(dirname $0))"
+
+function error() {
+  echo " !     $*" >&2
+  exit 1
+}
+
+function indent() {
+  c='s/^/       /'
+  case $(uname) in
+    Darwin) sed -l "$c";;
+    *)      sed -u "$c";;
+  esac
+}
+
+echo "Using consul version: ${CONSUL_VERSION}" | indent
+
+# vendor directories
+VENDORED_CONSUL="vendor/consul"
+
+if which unzip >/dev/null; then
+  unpack_command="unzip"
+elif which jar >/dev/null; then
+  unpack_command="jar xf"
+else
+  echo "Need unzip or jar available to unpack." >&2
+  exit 1
+fi
+
+# vendor consul into the slug
+echo "-----> Fetching and vendoring consul into slug"
+mkdir -p "$BUILD_DIR/bin"
+$unpack_command consul_${CONSUL_VERSION}_linux_amd64.zip -d ${BUILD_DIR}/bin
+
+echo "-----> Moving the configuration generation script into app/bin"
+mkdir -p $BUILD_DIR/bin
+cp "$BUILDPACK_DIR/bin/gen-consul-conf.sh" $BUILD_DIR/bin
+chmod +x $BUILD_DIR/bin/gen-consul-conf.sh
+
+echo "-----> Moving the start-consul-client script into app/bin"
+mkdir -p $BUILD_DIR/bin
+cp "$BUILDPACK_DIR/bin/start-consul-client" $BUILD_DIR/bin/
+chmod +x $BUILD_DIR/bin/start-consul-client
+
+echo "-----> consul done"
