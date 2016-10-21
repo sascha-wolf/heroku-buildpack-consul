@@ -15,7 +15,9 @@ cat >> ${CONSUL_CONFIG_DIR}/basic_config.json << EOFEOF
   "leave_on_terminate": true,
   "log_level": "INFO",
   "node_name": "$(cat /proc/sys/kernel/random/uuid)",
-  "raft_multiplier": 1,
+  "performance": {
+    "raft_multiplier": 1
+  }
   "reconnect_timeout": "8h",
   "retry_join": [
     "1.consul_server.${HEROKU_DNS_APP_NAME}",
@@ -28,4 +30,4 @@ cat >> ${CONSUL_CONFIG_DIR}/basic_config.json << EOFEOF
 }
 EOFEOF
 
-# vim: syntax=json ts=4 sw=4 sts=4 sr noet
+# vim: syntax=json
