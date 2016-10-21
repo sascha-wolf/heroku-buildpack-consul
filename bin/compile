@@ -36,6 +36,7 @@ echo "Using consul version: ${CONSUL_VERSION}" | indent
 
 # vendor directories
 VENDORED_CONSUL="vendor/consul"
+mkdir -p "$VENDORED_CONSUL"
 
 if which unzip >/dev/null; then
   unpack_command="unzip"
