@@ -11,7 +11,7 @@ cat >> ${CONSUL_CONFIG_DIR}/basic_config.json << EOFEOF
   "bind_addr": "${HEROKU_PRIVATE_IP}",
   "bootstrap_expect": 3,
   "data_dir": "/tmp/consul/",
-  "datacenter": "${HEROKU_DNS_APP_NAME}",
+  "datacenter": "${HEROKU_DNS_APP_NAME//./_}",
   "leave_on_terminate": true,
   "log_level": "INFO",
   "node_name": "$(cat /proc/sys/kernel/random/uuid)",
