@@ -3,7 +3,7 @@
 : "${HEROKU_DNS_APP_NAME:?Need to set HEROKU_DNS_APP_NAME non-empty}"
 : "${HEROKU_PRIVATE_IP:?Need to set HEROKU_PRIVATE_IP non-empty}"
 
-CONSUL_CONFIG_DIR = /app/vendor/consul/
+CONSUL_CONFIG_DIR=/app/vendor/consul/
 
 mkdir -p "$CONSUL_CONFIG_DIR"
 cat >> ${CONSUL_CONFIG_DIR}/basic_config.json << EOFEOF
