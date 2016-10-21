@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Adapted from https://github.com/ryandotsmith/nginx-buildpack/
+
+main() {
+  config-gen
+  at consul-start
+  bin/consul agent -server -config-dir vendor/consul/
+}
+
+config-gen() {
+  # Generate config files
+  at config-gen-start
+  source bin/gen-consul-conf.sh
+  at config-gen-end
+}
+
+at() {
+  echo "buildpack=consul at=$*"
+}
+
+[[ "$0" != "$BASH_SOURCE" ]] || main "$@"
