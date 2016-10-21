@@ -4,7 +4,7 @@
 main() {
   config-gen
   at consul-start
-  bin/consul agent -server -config-dir vendor/consul/
+  bin/consul agent -server -bootstrap-expect 3 -config-dir vendor/consul/
 }
 
 config-gen() {
