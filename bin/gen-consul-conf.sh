@@ -16,9 +16,9 @@ cat >> ${CONSUL_CONFIG_DIR}/basic_config.json << EOFEOF
   "log_level": "INFO",
   "node_name": "$(cat /proc/sys/kernel/random/uuid)",
   "performance": {
-    "raft_multiplier": 1
-  }
-  "reconnect_timeout": "8h",
+    "raft_multiplier": 1,
+    "reconnect_timeout": "8h"
+  },
   "retry_join": [
     "1.consul_server.${HEROKU_DNS_APP_NAME}",
     "2.consul_server.${HEROKU_DNS_APP_NAME}",
