@@ -20,10 +20,6 @@ cat >> ${CONSUL_CONFIG_DIR}/basic_config.json << EOFEOF
   "reconnect_timeout": "8h",
   "retry_join": [
     "1.consul_server.${HEROKU_DNS_APP_NAME}",
-    "2.consul_server.${HEROKU_DNS_APP_NAME}",
-    "3.consul_server.${HEROKU_DNS_APP_NAME}",
-    "4.consul_server.${HEROKU_DNS_APP_NAME}",
-    "5.consul_server.${HEROKU_DNS_APP_NAME}"
   ],
   "skip_leave_on_interrupt": false
 }
