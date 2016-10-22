@@ -4,6 +4,7 @@
 main() {
   config-gen
   at consul-start
+  trap 'consul leave' SIGINT SIGTERM
   bin/consul agent -server -bootstrap-expect 3 -config-dir vendor/consul/
 }
 
