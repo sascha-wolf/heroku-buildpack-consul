@@ -21,6 +21,7 @@ cat >> ${CONSUL_CONFIG_DIR}/basic_config.json << EOFEOF
   "retry_join": [
     "1.consul_server.${HEROKU_DNS_APP_NAME}"
   ],
+  "retry_interval": "1s",
   "skip_leave_on_interrupt": false
 }
 EOFEOF
