@@ -22,7 +22,7 @@ run-consul() {
   pid=$!
 
   # Don't exit top script until all subprocesses are done.
-  trap '' SIGTERM
+  trap 'consul leave' SIGTERM
 
   # This read will block the process waiting on a msg to be put into the
   # fifo. If any of the processes defined above should exit, a msg will be
