@@ -13,7 +13,7 @@ cat >> ${CONSUL_CONFIG_DIR}/basic_config.json << EOFEOF
   "datacenter": "${HEROKU_DNS_APP_NAME//./_}",
   "leave_on_terminate": true,
   "log_level": "INFO",
-  "node_name": "$(cat /proc/sys/kernel/random/uuid)",
+  "node_name": "$(cat /proc/sys/kernel/random/uuid | cut -d'-' -f1)-${DYNO}",
   "performance": {
     "raft_multiplier": 1
   },
