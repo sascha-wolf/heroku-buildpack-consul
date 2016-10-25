@@ -44,9 +44,14 @@ else
 fi
 
 # vendor consul into the slug
-echo "-----> Fetching and vendoring consul into slug"
+echo "-----> Vendoring consul into slug"
 mkdir -p "$BUILD_DIR/bin"
 $unpack_command consul_${CONSUL_VERSION}_linux_amd64.zip -d ${BUILD_DIR}/bin
+
+# vendor jq into the slug
+echo "-----> Vendoring jq into slug"
+mkdir -p "$BUILD_DIR/bin"
+cp "$BUILDPACK_DIR/bin/jq-linux64" $BUILD_DIR/bin/jq
 
 echo "-----> Moving the configuration generation script into app/bin"
 mkdir -p $BUILD_DIR/bin
