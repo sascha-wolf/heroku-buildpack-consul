@@ -18,10 +18,7 @@ cat >> ${CONSUL_CONFIG_DIR}/basic_config.json << EOFEOF
     "raft_multiplier": 1
   },
   "reconnect_timeout": "8h",
-  "retry_join": [
-    "1.consul_server.${HEROKU_DNS_APP_NAME}",
-    "2.consul_server.${HEROKU_DNS_APP_NAME}"
-  ],
+  "retry_join": $(jq '[.apps | .[] | .formation | .[] | .dynos | .[] | select(.hostname | contains("consul_server.${HEROKU_DNS_APP_NAME}")) | .hostname] | sort | reverse' /etc/heroku/space-topology.json)
   "retry_interval": "1s",
   "skip_leave_on_interrupt": false
 }
