@@ -17,7 +17,7 @@ cat >> ${CONSUL_CONFIG_DIR}/basic_config.json << EOFEOF
   "performance": {
     "raft_multiplier": 1
   },
-  "reconnect_timeout": "8h",
+  "reconnect_timeout": "1m",
   "retry_join": $(jq --arg dns consul_server.${HEROKU_DNS_APP_NAME} \
     '[
       .apps
