@@ -19,7 +19,7 @@ cat >> ${CONSUL_CONFIG_DIR}/basic_config.json << EOFEOF
     "raft_multiplier": 1
   },
   "reconnect_timeout": "1m",
-  "retry_join": "${CONSUL_SERVER}",
+  "retry_join": ["${CONSUL_SERVER}"],
   "retry_interval": "1s",
   "skip_leave_on_interrupt": false
 }
