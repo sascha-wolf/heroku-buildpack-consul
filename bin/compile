@@ -12,6 +12,7 @@ unset GIT_DIR
 
 # config
 CONSUL_VERSION="1.6.0"
+ENVCONSUL_VERSION="0.9.0"
 
 # parse and derive params
 BUILD_DIR=$1
@@ -33,6 +34,7 @@ function indent() {
 }
 
 echo "Using consul version: ${CONSUL_VERSION}" | indent
+echo "Using envconsul version: ${ENVCONSUL_VERSION}" | indent
 
 if which unzip >/dev/null; then
   unpack_command="unzip"
@@ -44,9 +46,10 @@ else
 fi
 
 # vendor consul into the slug
-echo "-----> Vendoring consul into slug"
+echo "-----> Vendoring consul and envconsul into slug"
 mkdir -p "$BUILD_DIR/bin"
 $unpack_command consul_${CONSUL_VERSION}_linux_amd64.zip -d ${BUILD_DIR}/bin
+$unpack_command envconsul_${ENVCONSUL_VERSION}_linux_amd64.zip -d ${BUILD_DIR}/bin
 
 # vendor jq into the slug
 echo "-----> Vendoring jq into slug"
